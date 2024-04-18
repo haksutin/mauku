@@ -4,32 +4,94 @@
 <head>
     <title>Mauku Rescue</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: left;
+            color: #333;
+            margin: 20px;
+            padding-top: 15px;
+          
+        }
+
+        table {
+            width: 40%;
+            margin: 20px;
+            border-collapse: collapse;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+        }
+
+        thead {
+            background-color: #f2f2f2;
+            text-align: left;
+        }
+
+        th,
+        td {
+            padding: 12px 15px;
+            text-align: left;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f2f2f2;
+        }
+
+        a {
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            background-color: #007bff;
+            color: #fff;
+            transition: background-color 0.3s ease;
+            margin-left: 20px;
+        }
+
+        a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+    <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
 </head>
 
 <body>
-    <h1>Cats</h1>
+    <h1>Mauku Rescue - cats</h1>
     <table>
         <thead>
             <tr>
                 <th>Name</th>
-                <th>Weight</th>
-                <th>Date</th>
+                <th>Weight (kg)</th>
+                <th>Arrival date</th>
                 <th>Colour</th>
                 <th>Location details</th>
+                <th> </th>
             </tr>
         </thead>
         <tbody>
-            <tr th:each = "cat : ${cats}">
-                <td th:text = "${cat.name}"></td>
-                <td th:text = "${cat.weight}"></td>
-                <td th:text = "${cat.date}"></td>
-                <td th:text = "${cat.colour.name}"></td>
+            <tr th:each="cat : ${cats}">
+                <td th:text="${cat.name}"></td>
+                <td th:text="${cat.weight}"></td>
+                <td th:text="${cat.date}"></td>
+                <td th:text="${cat.colour.name}"></td>
                 <td><a th:href="@{/location/{id}(id=${cat.id})}" class="btn btn-secondary">Location</a></td>
-                <td><a th:href="@{/delete/{id}(id=${cat.id})}">Delete</a></td>
+                <td><a th:href="@{/delete/{id}(id=${cat.id})}" class="btn btn-danger">Delete</a></td>
             </tr>
         </tbody>
     </table>
-    <a href="/add">Add Cat</a>
+    <a href="/add" class="btn btn-primary">Add Cat</a>
 
 </body>
 

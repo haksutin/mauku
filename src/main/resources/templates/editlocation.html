@@ -4,14 +4,80 @@
 <head>
     <title>Edit location</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: left;
+            color: #333;
+            margin: 20px;
+            margin-bottom: 50px;
+        }
+
+        form {
+            width: 98%;
+            margin: 20px auto;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"],
+        select {
+            width: 200px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button[type="submit"],
+        a.button {
+            display: inline-block;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            background-color: #28a745;
+            color: #fff;
+            transition: background-color 0.3s ease;
+            border: none;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #248f3d;
+        }
+
+
+        a.button {
+            text-align: left;
+            margin: 20px;
+            background-color: #6c757d;
+            color: #fff;
+            border-color: #6c757d;
+
+        }
+
+        a.button:hover {
+            background-color: #5a6268;
+            border-color: #545b62;
+        }
+    </style>
 </head>
 
 <body>
-
     <h1>Edit location</h1>
     <form action="/savelocation" method="post">
         <input type="hidden" name="id" th:value="${cat.id}" />
-        <label for="name">Name:</label>
+        <label for="name">Cat:</label>
         <input type="text" id="name" name="name" th:value="${cat.name}" readonly /><br>
         <label for="location">Location:</label>
         <select id="location" name="location">
@@ -19,7 +85,7 @@
         </select>
         <button type="submit">Save</button>
     </form>
-    <a th:href="@{/location/{id}(id=${cat.id})}" class="btn btn-secondary">Back to location</a>
+    <a th:href="@{/location/{id}(id=${cat.id})}" class="button">Back to location</a>
 </body>
 
 </html>
