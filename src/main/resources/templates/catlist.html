@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Mauku Rescue</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+    <h1>Cats</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Weight</th>
+                <th>Date</th>
+                <th>Colour</th>
+                <th>Location details</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each = "cat : ${cats}">
+                <td th:text = "${cat.name}"></td>
+                <td th:text = "${cat.weight}"></td>
+                <td th:text = "${cat.date}"></td>
+                <td th:text = "${cat.colour.name}"></td>
+                <td><a th:href="@{/location/{id}(id=${cat.id})}" class="btn btn-secondary">Location</a></td>
+                <td><a th:href="@{/delete/{id}(id=${cat.id})}">Delete</a></td>
+            </tr>
+        </tbody>
+    </table>
+    <a href="/add">Add Cat</a>
+
+</body>
+
+</html>

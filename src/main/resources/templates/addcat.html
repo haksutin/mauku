@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Add cat</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+
+    <h1>Add cat</h1>
+    <form th:action="@{save}" action="#" method="post" th:object="${cat}">
+        <input type="hidden" th:field="*{id}">
+        Name: <input type="text" name="name" th:field="*{name}"><br>
+        Weight: <input type="text" name="weight" th:field="*{weight}"><br>
+        Date <input type="text" name="date" th:field="*{date}"><br>
+        Colour: <select name="colour" id="colour" th:field="*{colour}">
+            <option th:each="colour : ${colours}" th:value="${colour.colourid}" th:text="${colour.name}"></option>
+        </select><br>
+        Location: <select name="location" id="location" th:field="*{location}">
+            <option th:each="location : ${locations}" th:value="${location.locationid}" th:text="${location.name}"></option>
+        </select><br>
+        <br><button type="submit" class="btn btn-success">Add cat</button>
+    </form>
+    </table>
+    <a href="/cats" class="btn btn-secondary">Back to catlist</a>
+</body>
+
+</html>

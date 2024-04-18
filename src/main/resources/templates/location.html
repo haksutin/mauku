@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Location details</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+    <table>
+        <form>
+            <h1>Location details</h1>
+            <br>
+            <th:block th:if="${cat.isPresent()}">
+                <p>Cat: <span th:text="${cat.get().name}"></span></p>
+                <p>Location: <span th:text="${cat.get().location.name}"></span></p>
+            </th:block>
+        </form>
+    </table>
+    <a th:if="${cat.isPresent()}" th:href="@{/editlocation/{id}(id=${cat.get().id})}"  class="btn btn-secondary">Edit location</a>
+    <a href="/cats" class="btn btn-secondary">Back to catlist</a>
+</body>
+
+</html>

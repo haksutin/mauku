@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Edit location</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+
+    <h1>Edit location</h1>
+    <form action="/savelocation" method="post">
+        <input type="hidden" name="id" th:value="${cat.id}" />
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" th:value="${cat.name}" readonly /><br>
+        <label for="location">Location:</label>
+        <select id="location" name="location">
+            <option th:each="location : ${locations}" th:value="${location.locationid}" th:text="${location.name}"></option>
+        </select>
+        <button type="submit">Save</button>
+    </form>
+    <a th:href="@{/location/{id}(id=${cat.id})}" class="btn btn-secondary">Back to location</a>
+</body>
+
+</html>
