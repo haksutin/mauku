@@ -84,6 +84,13 @@ public class Cat {
     public void setLocation(Location location) {
         this.location = location;
     }
+
+    @Override
+    public String toString() {
+        return "Cat [id=" + id + ", name=" + name + ", weight=" + weight + ", date=" + date + ", colour=" + colour
+                + ", location=" + location + "]";
+    }
+    
     
     
 }

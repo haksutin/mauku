@@ -1,10 +1,13 @@
 package com.example.mauku;
 
+import org.slf4j.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import com.example.mauku.domain.AppUser;
+import com.example.mauku.domain.AppUserRepository;
 import com.example.mauku.domain.Cat;
 import com.example.mauku.domain.CatRepository;
 import com.example.mauku.domain.Colour;
@@ -14,13 +17,14 @@ import com.example.mauku.domain.LocationRepository;
 
 @SpringBootApplication
 public class MaukuApplication {
+	private static final Logger log = LoggerFactory.getLogger(MaukuApplication.class);
 
 	public static void main(String[] args) {
 		SpringApplication.run(MaukuApplication.class, args);
 	}
 
 	@Bean
-	public CommandLineRunner demo(CatRepository catRepository, ColourRepository colourRepository, LocationRepository locationRepository) {
+	public CommandLineRunner demo(CatRepository catRepository, ColourRepository colourRepository, LocationRepository locationRepository, AppUserRepository appUserRepository) {
 		return (args) -> {
 
 			Colour colour1 = new Colour("White");
@@ -52,7 +56,17 @@ public class MaukuApplication {
 			catRepository.save(cat2);
 			catRepository.save(cat3);
 			catRepository.save(cat4);
-			
+
+			AppUser user1 = new AppUser("user", "$2a$10$4kWiiL7c188te3sqTZpKiOJMC8AJR2X4EAH8mKF5OOq/u1LOixz8e", "user@email.com", "USER" );
+			AppUser user2 = new AppUser("admin", "$2a$10$jrCuPRY1/ZGHA9d5jzkN9.OOk.b4j.fMRc0u.uGK4WK8Bio.5r6qW", "admin@email.com", "ADMIN" );
+
+			appUserRepository.save(user1);
+			appUserRepository.save(user2);
+
+			for (Cat cat : catRepository.findAll()) {
+			log.info(cat.toString());
+			}
+
 		};
 	}
 

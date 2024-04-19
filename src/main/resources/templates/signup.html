@@ -1,0 +1,95 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add student</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        h1 {
+            text-align: left;
+            color: #333;
+        }
+
+        .col-md-4 {
+            width: 50%;
+            margin: auto;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 4px;
+            background-color: #337ab7;
+            color: #fff;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background-color: #337ab7;
+        }
+
+        .btn-primary:hover {
+            background-color: #286090;
+        }
+
+        p {
+            color: #a94442;
+            margin-top: 5px;
+        }
+    </style>
+    <link type="text/css" rel="stylesheet" th:href="@{css/bootstrap.min.css}" />
+</head>
+<body>
+<div class="container">
+    <div class="col-md-4">
+        <h1>Sign-up</h1>
+        <form th:object="${signupform}" th:action="@{/signup}" action="#" method="post">
+            <div>
+                <label> Username :<input type="text" th:field="*{username}" class="form-control"/></label>
+                <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username Error</p>
+            </div>
+            <div>
+                <label> Password :<input type="password" th:field="*{password}" class="form-control"/></label>
+                <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</p>
+            </div>
+            <div>
+                <label> Re-type Password: <input type="password" th:field="*{passwordCheck}" class="form-control"/></label>
+                <p th:if="${#fields.hasErrors('passwordCheck')}" th:errors="*{passwordCheck}">Password Match Error</p>
+            </div>
+
+            <input type="submit" class="btn btn-primary" value="Signup"></input>
+        </form>
+    </div>
+</div>
+</body>
+</html>

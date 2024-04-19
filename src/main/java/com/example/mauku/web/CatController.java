@@ -1,9 +1,12 @@
 package com.example.mauku.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,6 +35,11 @@ public class CatController {
         return "catlist";
     }
 
+    @RequestMapping(value="/login")
+    public String login() {	
+        return "login";
+    }
+
     @RequestMapping(value = "/add")
     public String addCat(Model model) {
         model.addAttribute("cat", new Cat());
@@ -40,15 +48,9 @@ public class CatController {
         return "addcat";
     }
 
-    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    @PostMapping("/save")
     public String save(Cat cat) {
         catRepository.save(cat);
-        return "redirect:/cats";
-    }
-
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-    public String deleteCat(@PathVariable("id") Long id, Model model) {
-        catRepository.deleteById(id);
         return "redirect:/cats";
     }
 
@@ -59,20 +61,27 @@ public class CatController {
         return "location";
     }
 
-    @RequestMapping(value = "/editlocation/{id}", method = RequestMethod.GET)
-    public String editLocation(@PathVariable("id") Long id, Model model) {
+    @GetMapping("/editlocation/{id}")
+    public String showEditLocation(@PathVariable("id") Long id, Model model) {
         Cat cat = catRepository.findById(id).orElse(null);
         model.addAttribute("cat", cat);
         model.addAttribute("locations", locationRepository.findAll());
         return "editlocation";
     }
 
-    @RequestMapping(value = "/savelocation", method = RequestMethod.POST)
-    public String saveLocation(@RequestParam("id") Long id, @RequestParam("location") Long locationid) {
+    @PostMapping("/editlocation/{id}")
+    public String editLocation(@PathVariable("id") Long id, @RequestParam("location") Location name) {
         Cat cat = catRepository.findById(id).orElse(null);
-        Location location = locationRepository.findById(locationid).orElse(null);
-        cat.setLocation(location);
+        cat.setLocation(name);
         catRepository.save(cat);
         return "redirect:/location/" + id;
     }
+
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public String deleteCat(@PathVariable("id") Long id, Model model) {
+        catRepository.deleteById(id);
+        return "redirect:/cats";
+    }
+
 }

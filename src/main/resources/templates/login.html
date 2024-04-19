@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <title>Login </title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+        }
+
+        h1, h3 {
+            text-align: left;
+            color: #333;
+            margin-bottom: 100px;
+        }
+
+        .col-md-4 {
+            width: 50%;
+            margin: auto;
+            margin-top: 5%;
+        }
+
+        .alert {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+        }
+
+        .alert-danger {
+            color: #a94442;
+            background-color: #f2dede;
+            border-color: #ebccd1;
+        }
+
+        .alert-warning {
+            color: #8a6d3b;
+            background-color: #fcf8e3;
+            border-color: #faebcc;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 4px;
+            background-color: #337ab7;
+            color: #fff;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background-color: #337ab7;
+        }
+
+        .btn-primary:hover {
+            background-color: #286090;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 10px;
+            color: #337ab7;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+</head>
+<body>
+<div class="col-md-4">
+    <h1>Mauku Rescue</h1>
+    <h3>Login</h3>
+    <div class="alert alert-danger" th:if="${param.error}">
+        Invalid username and password.
+    </div>
+    <div class="alert alert-warning" th:if="${param.logout}">
+        You have been logged out.
+    </div>
+    <form th:action="@{/login}" method="post">
+        <div><label> User Name : <input type="text" name="username" class="form-control"/> </label></div>
+        <div><label> Password: <input type="password" name="password" class="form-control"/> </label></div>
+        <div><input type="submit" value="Sign In" class="btn btn-primary"/></div>
+    </form>
+    <a th:href="@{/signup}">Sign-up</a>
+</div>
+</body>
+</html>
