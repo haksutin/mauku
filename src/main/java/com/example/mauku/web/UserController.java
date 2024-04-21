@@ -1,7 +1,10 @@
 package com.example.mauku.web;
 
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,6 +19,9 @@ public class UserController {
 
     @Autowired
     private AppUserRepository repository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @GetMapping("/signup")
     public String showSignupForm(Model model) {
@@ -59,6 +65,33 @@ public class UserController {
         repository.save(newUser);
 
         return "redirect:/login";
+    }
+
+    @GetMapping(value = "/password")
+    public String showChangePassword() {
+        return "password";
+    }
+
+    @PostMapping("/password")
+    public String changePassword(@RequestParam("oldPassword") String oldPassword,
+            @RequestParam("newPassword") String newPassword, 
+            @RequestParam("passwordCheck") String passwordCheck, Principal principal) {
+
+        AppUser user = repository.findByUsername(principal.getName());
+
+        if (!passwordEncoder.matches(oldPassword, user.getPasswordHash())) {
+            return "redirect:/password?error=incorrect";
+        }
+
+        if (!newPassword.equals(passwordCheck)) {
+            return "redirect:/password?error=nomatch";
+        }
+
+        String hashedPassword = passwordEncoder.encode(newPassword);
+        user.setPasswordHash(hashedPassword);
+        repository.save(user);
+
+        return "redirect:/cats";
     }
 
 }

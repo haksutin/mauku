@@ -78,42 +78,47 @@
         .btn-success {
             margin-top: 20px;
         }
+
+        .password {
+            margin: 20px;
+        }
     </style>
     <link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
 </head>
 
 <body>
-        <h1>Mauku Rescue - cats</h1>
-        <h5 sec:authorize="hasAnyAuthority('ADMIN', 'USER')">Welcome <span sec:authentication="name"></span></h5>
-        <table>
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Weight (kg)</th>
-                    <th>Arrival date</th>
-                    <th>Colour</th>
-                    <th>Location details</th>
-                    <th sec:authorize="hasAuthority('ADMIN')"> </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="cat : ${cats}">
-                    <td th:text="${cat.name}"></td>
-                    <td th:text="${cat.weight}"></td>
-                    <td th:text="${cat.date}"></td>
-                    <td th:text="${cat.colour.name}"></td>
-                    <td><a th:href="@{/location/{id}(id=${cat.id})}" class="btn btn-secondary">Location</a></td>
-                    <td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/delete/{id}(id=${cat.id})}"
-                            class="btn btn-danger">Delete</a></td>
-                </tr>
-            </tbody>
-        </table>
-        <a sec:authorize="hasAnyAuthority('ADMIN', 'USER')" href="/add" class="btn btn-success">Add Cat</a>
-        <form sec:authorize="hasAnyAuthority('ADMIN', 'USER')" th:action="@{/logout}" method="post">
-            <input type="submit" value="Sign Out" class="btn btn-danger" />
-            <input type="hidden" name="_csrf" value="d63f746f-c5f6-4cc6-99c0-9220ff784b23" />
-        </form>
-        <a sec:authorize="isAnonymous()" href="/login" class="btn btn-primary">Login</a>
+    <h1>Mauku Rescue - cats</h1>
+    <h5 sec:authorize="hasAnyAuthority('ADMIN', 'USER')">Welcome <span sec:authentication="name"></span></h5>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Weight (kg)</th>
+                <th>Arrival date</th>
+                <th>Colour</th>
+                <th>Location details</th>
+                <th sec:authorize="hasAuthority('ADMIN')"> </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="cat : ${cats}">
+                <td th:text="${cat.name}"></td>
+                <td th:text="${cat.weight}"></td>
+                <td th:text="${cat.date}"></td>
+                <td th:text="${cat.colour.name}"></td>
+                <td><a th:href="@{/location/{id}(id=${cat.id})}" class="btn btn-secondary">Location</a></td>
+                <td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/delete/{id}(id=${cat.id})}"
+                        class="btn btn-danger">Delete</a></td>
+            </tr>
+        </tbody>
+    </table>
+    <a sec:authorize="hasAnyAuthority('ADMIN', 'USER')" href="/add" class="btn btn-success">Add cat</a>
+    <br><br><a sec:authorize="hasAnyAuthority('ADMIN', 'USER')" href="/password" class="btn-secondary password">Change password</a>
+    <form sec:authorize="hasAnyAuthority('ADMIN', 'USER')" th:action="@{/logout}" method="post">
+        <input type="submit" value="Sign Out" class="btn btn-danger" />
+        <input type="hidden" name="_csrf" value="d63f746f-c5f6-4cc6-99c0-9220ff784b23" />
+    </form>
+    <a sec:authorize="isAnonymous()" href="/login" class="btn btn-primary">Login</a>
 </body>
 
 </html>

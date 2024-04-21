@@ -1,6 +1,8 @@
 package com.example.mauku;
 
 import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher;
+import static org.springframework.boot.autoconfigure.security.servlet.PathRequest.toH2Console;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -9,6 +11,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 
@@ -35,12 +38,21 @@ public class WebSecurityConfig {
                    .requestMatchers(
                          antMatcher("/addcat"), 
                          antMatcher("/delete/**"), 
-                         antMatcher("/editlocation/**")
-                   ).authenticated()
-                .anyRequest().authenticated()
-            )
-                .headers(headers -> headers.frameOptions(frameOptions -> frameOptions
-                        .disable()))
+                         antMatcher("/editlocation/**"),
+                         antMatcher("/password"),
+                         toH2Console()
+                         ).authenticated()
+                         .anyRequest().authenticated()
+                     )
+                     .csrf(csrf -> csrf
+                         .ignoringRequestMatchers("/password")
+                         .ignoringRequestMatchers(toH2Console())
+                        )
+                     .headers(headers -> headers
+                         .frameOptions(frameoptions -> frameoptions
+                             .disable()
+                         )
+                     )
                 .formLogin(formlogin -> formlogin
                         .loginPage("/login")
                         .permitAll())
@@ -55,6 +67,11 @@ public class WebSecurityConfig {
         @Autowired
         public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
                 auth.userDetailsService(userDetailService).passwordEncoder(new BCryptPasswordEncoder());
+        }
+
+        @Bean
+        public PasswordEncoder passwordEncoder() {
+                return new BCryptPasswordEncoder();
         }
 
 }
