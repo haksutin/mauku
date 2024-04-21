@@ -35,6 +35,17 @@
             display: block;
         }
 
+        input[type="date"],
+        select {
+            width: 200px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+            display: block;
+        }
+
         label {
             font-weight: bold;
         }
@@ -70,6 +81,11 @@
         button.add:hover {
             background-color: #248f3d;
         }
+
+        .ui-datepicker {
+            color: #333;
+            background-color: #ccc;
+        }
     </style>
 </head>
 
@@ -82,8 +98,8 @@
         <input type="text" name="name" th:field="*{name}"><br>
         <label for="weight">Weight (kg):</label>
         <input type="text" name="weight" th:field="*{weight}"><br>
-        <label for="date">Arrival date:</label>
-        <input type="text" name="date" th:field="*{date}"><br>
+        <label for="date">Arrival date:</label><br>
+        <input type="date" name="date" th:field="*{date}"><br>
         <label for="colour">Colour:</label>
         <select name="colour" id="colour" th:field="*{colour}">
             <option th:each="colour : ${colours}" th:value="${colour.colourid}" th:text="${colour.name}"></option>

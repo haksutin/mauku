@@ -35,6 +35,12 @@ public class UserController {
             return "signup";
         }
 
+        String email = signupForm.getEmail();
+        if (repository.findByEmail(email) != null) {
+            bindingResult.rejectValue("email", "err.email", "Email already exists");
+            return "signup";
+        }
+
         String password = signupForm.getPassword();
         String passwordCheck = signupForm.getPasswordCheck();
         if (!password.equals(passwordCheck)) {
@@ -48,6 +54,7 @@ public class UserController {
         AppUser newUser = new AppUser();
         newUser.setPasswordHash(hashedPassword);
         newUser.setUsername(username);
+        newUser.setEmail(email);
         newUser.setRole("USER");
         repository.save(newUser);
 

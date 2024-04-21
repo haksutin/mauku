@@ -1,5 +1,7 @@
 package com.example.mauku;
 
+import java.time.LocalDate;
+
 import org.slf4j.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -47,10 +49,10 @@ public class MaukuApplication {
 			locationRepository.save(location2);
 			locationRepository.save(location3);
 
-			Cat cat1 = new Cat("Fluff", 3.9, "2024-02-10", colour1, location1);
-			Cat cat2 = new Cat("Tiger", 3.0, "2024-03-21", colour2, location3);
-			Cat cat3 = new Cat("Batman", 2.8, "2024-03-25", colour3, location1);
-			Cat cat4 = new Cat("Chibi", 2.5, "2024-04-07", colour5, location2);
+			Cat cat1 = new Cat("Fluff", 3.9, LocalDate.of(2024, 10, 2), colour1, location1);
+			Cat cat2 = new Cat("Tiger", 3.0, LocalDate.of(2024, 3, 21), colour2, location3);
+			Cat cat3 = new Cat("Batman", 2.8, LocalDate.of(2024, 3, 25), colour3, location1);
+			Cat cat4 = new Cat("Chibi", 2.5, LocalDate.of(2024, 4, 7), colour5, location2);
 
 			catRepository.save(cat1);
 			catRepository.save(cat2);

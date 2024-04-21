@@ -1,5 +1,7 @@
 package com.example.mauku.domain;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,7 +17,7 @@ public class Cat {
     private Long id;
     private String name;
     private double weight;
-    private String date;
+    private LocalDate date;
 
     @ManyToOne
     @JoinColumn(name = "colourid")
@@ -28,7 +30,7 @@ public class Cat {
     public Cat() {
     }
 
-    public Cat(String name, double weight, String date, Colour colour, Location location) {
+    public Cat(String name, double weight, LocalDate date, Colour colour, Location location) {
         super();
         this.name = name;
         this.weight = weight;
@@ -61,11 +63,11 @@ public class Cat {
         this.weight = weight;
     }
 
-    public String getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 

@@ -17,6 +17,10 @@ public class SignupForm {
     private String passwordCheck = "";
 
     @NotEmpty
+    @Email (message = "Email should be valid")
+    private String email = "";
+
+    @NotEmpty
     private String role = "USER";
 
     public String getUsername() {
@@ -43,6 +47,14 @@ public class SignupForm {
         this.passwordCheck = passwordCheck;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getRole() {
         return role;
     }
@@ -50,6 +62,8 @@ public class SignupForm {
     public void setRole(String role) {
         this.role = role;
     }
+
+    
 
     
 }

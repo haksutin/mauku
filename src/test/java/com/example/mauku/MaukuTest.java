@@ -2,6 +2,7 @@ package com.example.mauku;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.time.LocalDate;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,7 @@ public class MaukuTest {
 
     @Test
     public void testCatRepository() {
-        catRepository.save(new Cat("Test", 2.0, "2024-01-01", null, null));
+        catRepository.save(new Cat("Test", 2.0, LocalDate.of(2024, 1, 1), null, null));
 
         List<Cat> foundCat = catRepository.findByName("Test");
         assertThat(foundCat).isNotNull();
