@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Add student</title>
+    <title>Sign up</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <style>
         body {
@@ -72,7 +72,7 @@
 <body>
 <div class="container">
     <div class="col-md-4">
-        <h1>Sign-up</h1>
+        <h1>Sign up</h1>
         <form th:object="${signupform}" th:action="@{/signup}" action="#" method="post">
             <div>
                 <label> Username :<input type="text" th:field="*{username}" class="form-control"/></label>
@@ -87,7 +87,7 @@
                 <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</p>
             </div>
             <div>
-                <label> Re-type Password: <input type="password" th:field="*{passwordCheck}" class="form-control"/></label>
+                <label> Re-type password: <input type="password" th:field="*{passwordCheck}" class="form-control"/></label>
                 <p th:if="${#fields.hasErrors('passwordCheck')}" th:errors="*{passwordCheck}">Password Match Error</p>
             </div>
 
